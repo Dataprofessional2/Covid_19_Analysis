@@ -152,6 +152,35 @@ limit 10;
 
 
 
+## COVID-19 Data Analysis
+🔹 Key Questions Addressed
+- How did COVID-19 cases, deaths, and recoveries vary across countries and WHO regions?
+- Which countries and regions experienced the highest mortality rates?
+- What trends emerged over time in the spread of the virus?
+
+🔹 Findings Summary
+- The highest death counts were concentrated in specific regions (e.g. Americas, Europe), while mortality rates varied significantly by country.
+
+- The progression of cases and deaths showed distinct waves globally, with peaks at different times across regions.
+
+- Some countries had disproportionately high case fatality rates, highlighting differences in healthcare capacity and response.
+
+🔹 Recommendations
+- Use regional trends to inform preparedness and resource allocation for future outbreaks.
+
+- Strengthen data reporting consistency to enable more accurate cross-country comparisons.
+
+- Apply similar analytical frameworks for monitoring future pandemics or public health crises.
+
+
+
+
+
+
+
+
+
+
 
 
 
