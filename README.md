@@ -66,6 +66,7 @@ WHERE Deaths = (
   WHERE sub.WHO_Region = main.WHO_Region
 )
 ORDER BY Deaths;
+```
 ```sql
 -- Listing out the countries with most people recovered in each WHO Region
 SELECT WHO_Region, Country, Recovered
@@ -93,6 +94,38 @@ GROUP BY
 ORDER BY 
   Total_Deaths DESC;
 ```
+
+
+
+
+
+
+
+
+
+```sql
+-- Highest recovery rate around the world in different WHO region
+SELECT 
+  WHO_Region,
+  ROUND(SAFE_DIVIDE(SUM(Recovered), SUM(Confirmed)) * 100, 2) AS Recovery_Rate_Percent
+FROM 
+  covid-analysis-463108.Covid_19_Analysis.Country_Wise_Latest
+GROUP BY 
+  WHO_Region
+ORDER BY 
+  Recovery_Rate_Percent DESC;
+```
+
+
+
+
+
+
+
+
+
+
+
 
 
 
