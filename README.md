@@ -56,6 +56,46 @@ In the initial data preparation phase, we performed the following tasks:
 -- Simply retrieving data from the table
 SELECT * FROM covid-analysis-463108.Covid_19_Analysis.Country_Wise_Latest LIMIT 1000;
 ```
+```sql
+-- Listing out the countries with most deaths in each WHO Region
+SELECT WHO_Region, Country, Deaths
+FROM covid-analysis-463108.Covid_19_Analysis.Country_Wise_Latest AS main
+WHERE Deaths = (
+  SELECT MAX(Deaths)
+  FROM covid-analysis-463108.Covid_19_Analysis.Country_Wise_Latest AS sub
+  WHERE sub.WHO_Region = main.WHO_Region
+)
+ORDER BY Deaths;
+```sql
+-- Listing out the countries with most people recovered in each WHO Region
+SELECT WHO_Region, Country, Recovered
+FROM covid-analysis-463108.Covid_19_Analysis.Country_Wise_Latest AS main
+WHERE Recovered = (
+  SELECT MAX(Recovered)
+  FROM covid-analysis-463108.Covid_19_Analysis.Country_Wise_Latest AS sub
+  WHERE sub.WHO_Region = main.WHO_Region
+)
+ORDER BY Recovered;
+```
+```sql
+-- Listing out the WHO Region  with most deaths,recovered and confirmed across the world
+SELECT * FROM covid-analysis-463108.Covid_19_Analysis.Country_Wise_Latest 
+order by Country;
+SELECT 
+  WHO_Region,
+  SUM(Deaths) AS Total_Deaths,
+  SUM(Confirmed) AS Total_Confirmed,
+  SUM(Recovered) AS Total_Recovered
+FROM 
+  covid-analysis-463108.Covid_19_Analysis.Country_Wise_Latest
+GROUP BY 
+  WHO_Region
+ORDER BY 
+  Total_Deaths DESC;
+```
+
+
+
 
 
 
