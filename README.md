@@ -117,10 +117,30 @@ ORDER BY
 ```
 
 
+```sql
+-- Highest Death rate around the world in different WHO region
+SELECT 
+  WHO_Region,
+  SUM(Deaths) AS Total_Deaths,
+  SUM(Confirmed) AS Total_Confirmed,
+  ROUND(SAFE_DIVIDE(SUM(Deaths), SUM(Confirmed)) * 100, 2) AS Death_Rate_Percent
+FROM 
+  covid-analysis-463108.Covid_19_Analysis.Country_Wise_Latest
+GROUP BY 
+  WHO_Region
+ORDER BY 
+  Death_Rate_Percent DESC;
+```
 
 
-
-
+```sql
+-- Countries which didn't reported any deaths during this timeframe
+ SELECT Country, Confirmed, Deaths,WHO_Region
+FROM covid-analysis-463108.Covid_19_Analysis.Country_Wise_Latest
+WHERE Deaths = 0 AND Confirmed > 0
+ORDER BY Confirmed DESC
+limit 10;
+```
 
 
 
