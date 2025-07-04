@@ -144,7 +144,86 @@ limit 10;
 
 ## Python Code chunks
 ```python
-print("hello")
+#Importing libraries
+#Visuals will be created using tableau
+
+import pandas as pd
+import numpy as np
+
+
+
+#Importing data
+print('#Importing data')
+df1=pd.read_csv("D:/Google Capstone/country_latest.csv")
+
+df=pd.DataFrame(df1)
+
+df.info()
+
+print("DF")
+print(df)
+
+
+
+
+
+#Inspecting Data
+print('df.info()')
+df.info()
+print("df.head(10)")
+print(df.head(10))
+print('df.describe()')
+print(df.describe())
+
+
+
+
+
+# Renaming and deleting relevant columns
+print("renaming columns")
+df.rename(columns={
+    'Country/Region': 'Country',
+    'Confirmed': 'Total_Confirmed',
+    'Deaths': 'Total_Deaths',
+    'New cases': 'New_Cases',
+    'New deaths': 'New_Deaths',
+    'New recovered': 'New_Recovered',
+    'Deaths / 100 Cases': 'Deaths_per_100_Cases',
+    'Recovered / 100 Cases': 'Recovered_per_100_Cases',
+    'Deaths / 100 Recovered': 'Deaths_per_100_Recovered',
+    'Confirmed last week': 'Confirmed_Last_Week',
+    '1 week change': 'One_Week_Change',
+    '1 week % increase': 'One_Week_Percent_Increase',
+    'WHO Region': 'WHO_Region'
+}, inplace=True)
+print(df)
+
+
+
+print("deleting column")
+df.drop(columns=[
+    'Confirmed_Last_Week',
+    'One_Week_Percent_Increase',
+    'Deaths_per_100_Recovered',
+    'Confirmed_Last_Week',
+    'One_Week_Change'
+], inplace=True)
+
+print(df)
+
+
+
+# Cleaning Data
+print("df.isnull")
+print(df.isnull().sum())
+
+# We can fill null values using fillna() but there is no null value
+# ILLustrative one column
+df['Total_Deaths'].fillna(df['Total_Deaths'].mean(), inplace=True)
+
+df.fillna(df.mean(), inplace=True) # Doesn't change any value
+
+
 ```
 
 
