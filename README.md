@@ -223,7 +223,50 @@ df['Total_Deaths'].fillna(df['Total_Deaths'].mean(), inplace=True)
 
 df.fillna(df.mean(), inplace=True) # Doesn't change any value
 
+# 1. Countries with most deaths in each WHO Region
+most_deaths = df.loc[df.groupby("WHO_Region")["Total_Deaths"].idxmax()].sort_values("Total_Deaths")
+print("\n1. Countries with most deaths in each WHO Region:")
+print(most_deaths[["WHO_Region", "Country", "Total_Deaths"]])
 
+# 2. Countries with most recoveries in each WHO Region
+most_recovered = df.loc[df.groupby("WHO_Region")["Total_Recovered"].idxmax()].sort_values("Total_Recovered")
+print("\n2. Countries with most recovered in each WHO Region:")
+print(most_recovered[["WHO_Region", "Country", "Total_Recovered"]])
+
+# 3. WHO Region with most deaths, recovered, and confirmed
+region_summary = df.groupby("WHO_Region", as_index=False).agg({
+    "Total_Deaths": "sum",
+    "Total_Confirmed": "sum",
+    "Total_Recovered": "sum"
+}).sort_values("Total_Deaths", ascending=False)
+print("\n3. WHO Region Summary (Deaths, Confirmed, Recovered):")
+print(region_summary)
+
+# 4. Highest recovery rate in each WHO Region
+df_recovery_rate = df.groupby("WHO_Region", as_index=False).agg({
+    "Total_Recovered": "sum",
+    "Total_Confirmed": "sum"
+})
+df_recovery_rate["Recovery_Rate_Percent"] = round((df_recovery_rate["Total_Recovered"] / df_recovery_rate["Total_Confirmed"]) * 100, 2)
+df_recovery_rate = df_recovery_rate.sort_values("Recovery_Rate_Percent", ascending=False)
+print("\n4. Highest recovery rate by WHO Region:")
+print(df_recovery_rate[["WHO_Region", "Recovery_Rate_Percent"]])
+
+# 5. Highest death rate in each WHO Region
+df_death_rate = df.groupby("WHO_Region", as_index=False).agg({
+    "Total_Deaths": "sum",
+    "Total_Confirmed": "sum"
+})
+df_death_rate["Death_Rate_Percent"] = round((df_death_rate["Total_Deaths"] / df_death_rate["Total_Confirmed"]) * 100, 2)
+df_death_rate = df_death_rate.sort_values("Death_Rate_Percent", ascending=False)
+print("\n5. Highest death rate by WHO Region:")
+print(df_death_rate[["WHO_Region", "Total_Deaths", "Total_Confirmed", "Death_Rate_Percent"]])
+
+# 6. Countries with confirmed cases but zero deaths
+no_deaths = df[(df["Total_Deaths"] == 0) & (df["Total_Confirmed"] > 0)]
+top_no_deaths = no_deaths.sort_values("Total_Confirmed", ascending=False).head(10)
+print("\n6. Countries with confirmed cases but zero deaths:")
+print(top_no_deaths[["Country", "Total_Confirmed", "Total_Deaths", "WHO_Region"]])
 ```
 
 
